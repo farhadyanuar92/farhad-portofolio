@@ -1,45 +1,42 @@
 ---
-title: "Building Once UI, a Customizable Design System"
-publishedAt: "2024-04-08"
-summary: "Development of a flexible and highly customizable design system using Next.js for front-end and Figma for design collaboration."
+title: "Building a Shared Component Library for Enterprise Healthcare"
+publishedAt: "2023-03-01"
+summary: "Designed and built a shared React component library to standardise UI patterns across a suite of internal healthcare applications, reducing duplication and speeding up feature delivery."
 images:
   - "/images/projects/project-01/cover-01.jpg"
   - "/images/projects/project-01/cover-02.jpg"
-  - "/images/projects/project-01/cover-03.jpg"
-  - "/images/projects/project-01/cover-04.jpg"
 team:
-  - name: "Selene Yu"
+  - name: "Farhad Yanuar"
     role: "Software Engineer"
     avatar: "/images/avatar.jpg"
-    linkedIn: "https://www.linkedin.com/company/once-ui/"
-  - name: "Lorant One"
-    role: "Design Engineer"
-    avatar: "/images/projects/project-01/avatar-01.jpg"
-    linkedIn: "https://www.linkedin.com/company/once-ui/"
+    linkedIn: "https://www.linkedin.com/in/farhadyanuar/"
 ---
 
 ## Overview
 
-Development of a flexible and highly customizable design system using Next.js for front-end and Figma for design collaboration.
+Across a growing suite of internal healthcare applications, UI inconsistency had become a real cost — teams were solving the same problems repeatedly, styles diverged between products, and onboarding new engineers meant re-learning each application's patterns. This project established a shared React component library to serve as the foundation for all internal front-end work.
 
-## Key Features
+## Key Challenges
 
-- **Component Library**: Built a set of modular, reusable UI components using React and styled-components in Next.js, focusing on accessibility and responsiveness.
-- **Theming and Customization**: Integrated a theming system that allows easy switching and customization of color palettes, typography, and layout styles using CSS variables and Figma tokens.
-- **Figma Integration**: Collaborated closely with designers by setting up a shared design library in Figma. This library was synchronized with the codebase, ensuring design handoffs were seamless and that design tokens remained consistent across both platforms.
-- **Documentation and Usage Guidelines**: Developed comprehensive documentation with Storybook to showcase components, usage patterns, and best practices, ensuring the design system is easy to adopt by other teams.
+**Designing for reuse without over-engineering.** Components needed to be flexible enough for different contexts without becoming so generic they were useless. Finding the right abstraction level took iteration and direct input from the teams who would use them.
 
-## Technologies Used
+**Backwards compatibility.** Existing applications were mid-development. The library had to be adoptable incrementally — teams could migrate at their own pace without a forced upgrade cycle.
 
-- **Next.js**: For fast, server-rendered React applications.
-- **Figma**: For creating and managing design assets and prototypes.
-- **Styled-Components**: For styling React components with a modular, themable approach.
-- **Storybook**: For building an interactive, documented component library.
+**Documentation that developers would actually read.** A component library is only valuable if people know how to use it. Time was invested in clear, example-driven documentation alongside the components themselves.
 
-## Challenges and Learnings
+## Technical Approach
 
-One key challenge was balancing the need for flexibility with the desire to maintain design consistency. The solution involved creating well-defined design tokens and establishing clear guidelines for when and how components could be customized. Additionally, setting up effective collaboration workflows between designers and developers using Figma and Git was a learning experience that greatly improved the process.
+- **Atomic design structure** — components organised from primitives (buttons, inputs, typography) up to composed patterns (forms, data tables, modal flows).
+- **Design token system** — colours, spacing, and typography defined as tokens, making theming and visual consistency manageable across products.
+- **TypeScript-first** — all components fully typed, providing IDE support and catching integration mistakes at compile time rather than runtime.
+- **Accessibility by default** — ARIA attributes, keyboard navigation, and focus management built into every interactive component.
+
+## Stack
+
+- **React, TypeScript, Next.js**
+- **CSS Modules / design tokens**
+- **Internal package registry**
 
 ## Outcome
 
-The design system is now actively used across multiple projects, leading to faster development cycles, fewer design inconsistencies, and improved collaboration between design and development teams. It has become a foundation for scaling our products efficiently while ensuring a cohesive user experience.
+Adoption across internal applications reduced duplicated UI code significantly and shortened the time needed to build new feature screens. Engineers spent less time on visual consistency and more on product logic. The library became the default starting point for all new internal projects.

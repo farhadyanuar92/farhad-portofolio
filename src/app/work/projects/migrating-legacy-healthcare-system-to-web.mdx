@@ -1,0 +1,44 @@
+---
+title: "Migrating a Legacy Healthcare Desktop System to the Web"
+publishedAt: "2022-06-01"
+summary: "Led the migration of an enterprise healthcare desktop application to a modern web stack, preserving complex business logic while improving maintainability and reducing operational overhead."
+images:
+  - "/images/projects/project-01/cover-01.jpg"
+team:
+  - name: "Farhad Yanuar"
+    role: "Software Engineer"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/farhadyanuar/"
+---
+
+## Overview
+
+A large healthcare organisation was running critical clinical workflows on an aging desktop application — tightly coupled, hard to maintain, and impossible to access remotely. The goal was to migrate this system to a modern web application without disrupting daily operations for clinical and administrative staff.
+
+The challenge was not just a technology migration — it was a full re-architecture of a system that had accumulated years of business logic, with no tolerance for functionality loss.
+
+## Key Challenges
+
+**Preserving complex domain logic.** The existing system encoded years of healthcare-specific rules — charge calculations, patient workflow states, role-based access rules — in ways that were often undocumented. Every requirement had to be reverse-engineered from the existing behaviour and validated with end users before reimplementation.
+
+**Zero-downtime cutover.** Clinical operations run continuously. The migration was designed to run in parallel with the legacy system, with a staged rollout that let departments switch over at their own pace while both systems stayed in sync.
+
+**User adoption.** Replacing a tool people have used for years requires careful UX consideration. Workflows were redesigned to feel familiar while removing friction points the old system had normalised.
+
+## Technical Approach
+
+- **Incremental strangler fig migration** — new modules were built as independent web services and gradually replaced legacy components, avoiding a big-bang rewrite.
+- **API layer over legacy data** — a thin adapter layer exposed the existing database through a clean API, letting new frontend modules consume live data before the full backend was rewritten.
+- **Role-based access control** — rebuilt from scratch to match the organisation's access hierarchy, with proper session management and audit logging.
+- **Component-driven frontend** — React components mapped directly to clinical workflows, making it straightforward to validate behaviour with domain experts.
+
+## Stack
+
+- **Frontend:** React, Next.js
+- **Backend:** .NET, Node.js, Laravel
+- **Database:** PostgreSQL
+- **Infrastructure:** On-premise deployment with web-accessible front end
+
+## Outcome
+
+The migration delivered a system that clinical staff could access from any device without installing software, reduced IT deployment overhead significantly, and gave the engineering team a codebase they could actually maintain and extend. The staged rollout ensured no disruption to patient-facing operations during the transition.

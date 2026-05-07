@@ -1,0 +1,66 @@
+---
+title: "ERP System Backend — Multi-Warehouse Distribution"
+publishedAt: "2024-10-01"
+summary: "Designed and built a production-grade ERP API for a multi-warehouse product distribution business — covering procurement, inventory, sales, point-of-sale, financial ledger, and operational cost tracking across a layered Node.js / Express / PostgreSQL architecture."
+images:
+  - "/images/projects/project-01/cover-01.jpg"
+team:
+  - name: "Farhad Yanuar"
+    role: "Software Engineer"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/farhad-yanuar/"
+---
+
+## Overview
+
+A full-stack Enterprise Resource Planning backend built for a product distribution and retail business operating across multiple warehouses. The system manages the complete operational lifecycle — from procurement and inventory to sales, point-of-sale retail, financial ledger tracking, and daily cost management — through a RESTful API consumed by a separate frontend application.
+
+The platform supports multi-warehouse operations with role-scoped data visibility, enforced at the route level across defined roles: Administrator, Warehouse Head (Kepala Gudang), and Warehouse Admin.
+
+## Core Modules
+
+**Inventory Engine**
+Multi-warehouse stock ledger with rack-level slot management, minimum stock thresholds, and soft-delete audit trails. Handles the complete inbound and outbound flow: Delivery Orders (Surat Jalan) with approval workflow, inter-warehouse Internal Transfers, Stock Opname (physical count + variance reconciliation), and Goods Adjustment documents for corrections and returns. Every stock mutation is recorded to an immutable adjustment history log tagged by operation type and source document.
+
+**Sales & Procurement**
+A B2B Sales Order module with a full lifecycle (creation → approval → shipping), barter transaction support (goods-for-goods exchange), loan/consignment flagging, and debt management with due date tracking. Gross margin is tracked per order (cost vs. revenue). A mirrored Purchase Order module handles vendor-side procurement with the same capabilities.
+
+**Point of Sale**
+Shift-based cashier session management, queue number assignment, multi-payment-type support, walk-in transactions, credit sales with debt tracking, and email receipt dispatch with PDF attachment. Products can be favourited for fast POS access.
+
+**Financial Ledger**
+Monthly Balance Sheet modules covering equity (share capital, retained earnings), current and non-current assets (with fixed asset depreciation scheduling), and short/long-term liabilities. Daily operational cost tracking across three categories: logistics costs (tied to sales orders with driver/vehicle/toll tracking), employee payroll (daily salary, bonus, and debt deduction), and ad-hoc unexpected costs.
+
+**Reporting & Export**
+Excel reports generated for every major operational document — stock, delivery orders, transfers, sales, purchases, POS, opname, and financials — via ExcelJS. PDF generation via pdf-lib and Handlebars for structured document templates.
+
+## Engineering Highlights
+
+**Atomic transactions across service boundaries.** All multi-table write operations (create SO + line items + deduct stock + write adjustment history) run inside Sequelize managed transactions. Services accept an external transaction parameter (`t = null`) to support chaining across service boundaries — a deliberate pattern for nested transactional integrity.
+
+**Unique code generation with collision prevention.** A shared `codeGenerator` utility generates prefixed document codes (e.g. `SO-12345678`, `POS-87654321`) using a `do-while` loop that re-generates on collision — guaranteeing database-level uniqueness without sequence dependencies.
+
+**Reusable query builder.** `buildQueryOptions` and `buildPaginationResponse` centralise pagination, filtering, search, and date-range logic, eliminating repetitive query construction across 25+ service files.
+
+**Role-scoped data isolation.** Notification counts and queries are dynamically scoped by `user.roleId` and `user.warehouseId` — enforcing data boundaries without a multi-tenancy framework.
+
+**DB-backed caching layer.** Rather than a Redis dependency, a lightweight cache is implemented via a dedicated database table with configurable TTL (default 3 hours). A `getOrSetCache` helper abstracts read/write/refresh logic — a pragmatic choice that avoids external infrastructure at this scale.
+
+**Paranoid soft-delete with actor tracking.** Critical tables use Sequelize paranoid delete, preserving data while capturing `deletedBy` and `restoredBy` references for full auditability and recovery.
+
+**Encrypted password transit.** Passwords are encrypted client-side (crypto-js) and decrypted server-side before bcrypt hashing — an additional obfuscation layer on top of HTTPS.
+
+## Stack
+
+- **Runtime:** Node.js 18
+- **Framework:** Express.js
+- **ORM:** Sequelize 6 (PostgreSQL)
+- **Auth:** JWT + bcrypt
+- **Validation:** Yup
+- **Reporting:** ExcelJS, pdf-lib, Handlebars
+- **Email:** Nodemailer (Gmail SMTP)
+- **Containerisation:** Docker multi-stage build (Node 18 Alpine), non-root execution, graceful shutdown
+
+## Outcome
+
+The system orchestrates the complete operational flow of a distribution business across 25+ functional modules. The architecture — Controller → Service → Model with centralised helpers — kept the codebase maintainable at scale. The reusable patterns (query builder, transaction chaining, code generation) consistently reduced per-feature development time as the module count grew.

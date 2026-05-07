@@ -1,0 +1,42 @@
+---
+title: "Ledger Transaction System for Healthcare Finance"
+publishedAt: "2023-08-01"
+summary: "Designed and built a double-entry ledger system to manage financial transactions across healthcare services, replacing manual processes and reducing reconciliation errors."
+images:
+  - "/images/projects/project-01/cover-01.jpg"
+team:
+  - name: "Farhad Yanuar"
+    role: "Software Engineer"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/farhadyanuar/"
+---
+
+## Overview
+
+Healthcare finance operations require precise, auditable records of every transaction. This project involved designing and building a ledger transaction system from scratch — replacing fragmented manual processes with a centralised, double-entry accounting engine that integrates directly with external billing and payment providers.
+
+The system handles multi-service charge recording, payment reconciliation, and financial reporting for clinical operations, with full audit trails required for regulatory compliance.
+
+## Key Challenges
+
+The core challenge was modelling the accounting rules correctly. Healthcare billing involves complex charge structures — services, consumables, discounts, and adjustments — that all need to be represented consistently without data loss or ambiguity. Any bug at the ledger layer has direct financial consequences, so correctness was non-negotiable.
+
+Integrating with external payment gateways added another layer of complexity: handling partial payments, reversals, and asynchronous settlement events while keeping the internal ledger consistent.
+
+## Technical Approach
+
+- **Double-entry ledger model** — every financial event creates a balanced debit/credit pair, making reconciliation straightforward and errors immediately detectable.
+- **Event-driven reconciliation** — payment gateway webhooks trigger ledger entries, with idempotency keys preventing duplicate processing on retries.
+- **Transactional integrity** — all multi-step operations run within database transactions (PostgreSQL), ensuring no partial states can persist.
+- **Audit log** — a complete, immutable history of every ledger mutation for compliance and debugging.
+
+## Stack
+
+- **Backend:** .NET, Node.js
+- **Database:** PostgreSQL
+- **Frontend:** React, Next.js
+- **Integrations:** External billing API, payment gateway webhooks
+
+## Outcome
+
+The system replaced a previously manual reconciliation process that took several hours per day. Financial data is now consistent, auditable, and available in real time. Reconciliation errors dropped significantly following rollout, and the finance team gained self-service reporting they previously had to request from IT.

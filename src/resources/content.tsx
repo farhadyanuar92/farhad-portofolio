@@ -2,20 +2,20 @@ import { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/
 import { Line, Row, Text } from "@once-ui-system/core";
 
 const person: Person = {
-  firstName: "Selene",
-  lastName: "Yu",
-  name: `Selene Yu`,
-  role: "Design Engineer",
+  firstName: "Farhad",
+  lastName: "Yanuar",
+  name: `Farhad Yanuar`,
+  role: "Software Engineer",
   avatar: "/images/avatar.jpg",
-  email: "example@gmail.com",
+  email: "farhadyanuar92@gmail.com",
   location: "Asia/Jakarta", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: ["English", "Bahasa"], // optional: Leave the array empty if you don't want to display languages
+  languages: ["English", "Bahasa Indonesia"], // optional: Leave the array empty if you don't want to display languages
 };
 
 const newsletter: Newsletter = {
-  display: true,
+  display: false,
   title: <>Subscribe to {person.firstName}'s Newsletter</>,
-  description: <>My weekly newsletter about creativity and engineering</>,
+  description: <>Occasional writing on software engineering, system design, and building things that last.</>,
 };
 
 const social: Social = [
@@ -25,26 +25,26 @@ const social: Social = [
   {
     name: "GitHub",
     icon: "github",
-    link: "https://github.com/once-ui-system",
+    link: "https://github.com/farhadyanuar92",
     essential: true,
   },
   {
     name: "LinkedIn",
     icon: "linkedin",
-    link: "https://www.linkedin.com/company/once-ui/",
+    link: "https://www.linkedin.com/in/farhad-yanuar/",
     essential: true,
   },
   {
     name: "Instagram",
     icon: "instagram",
-    link: "https://www.instagram.com/once_ui/",
+    link: "https://www.instagram.com/_kamikaaze/",
     essential: false,
   },
   {
     name: "Threads",
     icon: "threads",
-    link: "https://www.threads.com/@once_ui",
-    essential: true,
+    link: "https://www.threads.com/@_kamikaaze",
+    essential: false,
   },
   {
     name: "Email",
@@ -58,26 +58,27 @@ const home: Home = {
   path: "/",
   image: "/images/og/home.jpg",
   label: "Home",
-  title: `${person.name}'s Portfolio`,
-  description: `Portfolio website showcasing my work as a ${person.role}`,
-  headline: <>Building bridges between design and code</>,
+  title: `${person.name} – Software Engineer`,
+  description: `Portfolio of ${person.name}, a software engineer specialising in enterprise web systems, scalable architecture, and full-stack development.`,
+  headline: <>Engineering systems that scale, last, and matter</>,
   featured: {
     display: true,
     title: (
       <Row gap="12" vertical="center">
-        <strong className="ml-4">Once UI</strong>{" "}
+        <strong className="ml-4">ERP System Backend</strong>{" "}
         <Line background="brand-alpha-strong" vert height="20" />
         <Text marginRight="4" onBackground="brand-medium">
           Featured work
         </Text>
       </Row>
     ),
-    href: "/work/building-once-ui-a-customizable-design-system",
+    href: "/work/erp-system-backend-multi-warehouse",
   },
   subline: (
     <>
-    I'm Selene, a design engineer at <Text as="span" size="xl" weight="strong">ONCE UI</Text>, where I craft intuitive <br /> user experiences. After hours, I build my own projects.
-</>
+      I'm Farhad, a software engineer based in Jakarta with 4+ years building enterprise-grade systems.
+      <br /> I focus on clean architecture, maintainable code, and shipping solutions that actually hold up in production.
+    </>
   ),
 };
 
@@ -85,7 +86,7 @@ const about: About = {
   path: "/about",
   label: "About",
   title: `About – ${person.name}`,
-  description: `Meet ${person.name}, ${person.role} from ${person.location}`,
+  description: `${person.name} is a software engineer based in Tangerang, Indonesia with 4+ years of experience building enterprise web systems across healthcare, finance, and distribution.`,
   tableOfContent: {
     display: true,
     subItems: false,
@@ -95,59 +96,86 @@ const about: About = {
   },
   calendar: {
     display: true,
-    link: "https://cal.com",
+    link: "https://wa.me/628116602998?text=Hi%2C%20Farhad%20introduce%20yourself.",
   },
   intro: {
     display: true,
     title: "Introduction",
     description: (
       <>
-        Selene is a Jakarta-based design engineer with a passion for transforming complex challenges
-        into simple, elegant design solutions. Her work spans digital interfaces, interactive
-        experiences, and the convergence of design and technology.
+        I'm a software engineer based in Tangerang, Indonesia with 4+ years of experience across enterprise
+        healthcare systems. I work across the full stack — from .NET and Node.js backends to React and
+        Next.js frontends — and I've owned everything from production incidents and change requests to
+        greenfield system design. I care about writing code that's maintainable long after the sprint ends,
+        and I communicate directly with clients to make sure what we build actually solves the right problem.
       </>
     ),
   },
   work: {
-    display: true, // set to false to hide this section
+    display: true,
     title: "Work Experience",
     experiences: [
       {
-        company: "FLY",
-        timeframe: "2022 - Present",
-        role: "Senior Design Engineer",
+        company: "Bithealth",
+        timeframe: "Apr 2024 – Present",
+        role: "Software Engineer (Lead Maintenance Support)",
         achievements: [
           <>
-            Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user
-            engagement and 30% faster load times.
+            Lead maintenance for Siloam Hospital's web applications — autonomously owning three concurrent
+            projects: Master Data Management (MDM), Human Capital Management System (HCMS), and Doctor
+            Governance (DDG).
           </>,
           <>
-            Spearheaded the integration of AI tools into design workflows, enabling designers to
-            iterate 50% faster.
+            Sole point of contact for production issues — triaging, resolving, and communicating directly
+            with clients on every incident, change request, and service request through to closure.
+          </>,
+          <>
+            Integrated Midtrans payment gateway for online appointment booking, delivering a secure and
+            seamless transaction flow end-to-end.
+          </>,
+          <>
+            Assist and supervise colleagues on RPA (Robotic Process Automation) logic issues.
+          </>,
+          <>
+            Own monthly maintenance reporting with Google Data Studio, with direct reports delivered to the COO.
           </>,
         ],
-        images: [
-          // optional: leave the array empty if you don't want to display images
-          {
-            src: "/images/projects/project-01/cover-01.jpg",
-            alt: "Once UI Project",
-            width: 16,
-            height: 9,
-          },
-        ],
+        images: [],
       },
       {
-        company: "Creativ3",
-        timeframe: "2018 - 2022",
-        role: "Lead Designer",
+        company: "Bithealth",
+        timeframe: "Jan 2022 – Apr 2024",
+        role: "Associate Software Engineer (Fullstack)",
         achievements: [
           <>
-            Developed a design system that unified the brand across multiple platforms, improving
-            design consistency by 40%.
+            Analysed an existing Windows desktop system and led the migration to a web-based architecture —
+            rebuilding the backend in .NET with 90%+ unit test coverage via xUnit, and continuous code
+            quality analysis through SonarQube.
           </>,
           <>
-            Led a cross-functional team to launch a new product line, contributing to a 15% increase
-            in overall company revenue.
+            Built a responsive, maintainable frontend in Next.js and TypeScript with comprehensive Jest
+            unit tests maintained alongside every feature.
+          </>,
+          <>
+            Designed and implemented a ledger transaction system covering admission, billing calculation,
+            and integration with external financial systems — ensuring accurate data flow across all
+            connected services.
+          </>,
+          <>
+            Analysed customer requirements and translated them into technical specifications, proposing
+            architecture and implementation approaches directly to stakeholders.
+          </>,
+        ],
+        images: [],
+      },
+      {
+        company: "The Court",
+        timeframe: "Mar 2024 – Sep 2024",
+        role: "Frontend Developer (Part-Time)",
+        achievements: [
+          <>
+            Built and maintained the UI for a real-time football match tracking system — creating
+            responsive pages and robust real-time data logic for live match input and analysis.
           </>,
         ],
         images: [],
@@ -155,78 +183,52 @@ const about: About = {
     ],
   },
   studies: {
-    display: true, // set to false to hide this section
-    title: "Studies",
+    display: true,
+    title: "Education",
     institutions: [
       {
-        name: "University of Jakarta",
-        description: <>Studied software engineering.</>,
+        name: "Universitas Teknologi Yogyakarta",
+        description: <>Bachelor's Degree — graduated with a 3.77 GPA.</>,
       },
       {
-        name: "Build the Future",
-        description: <>Studied online marketing and personal branding.</>,
+        name: "Hacktiv8 Bootcamp",
+        description: <>Fullstack JavaScript intensive — HTML/CSS, JavaScript, Node.js, Express, React, Redux, and Vue. Final grade: 78.20.</>,
       },
     ],
   },
   technical: {
-    display: true, // set to false to hide this section
-    title: "Technical skills",
+    display: true,
+    title: "Technical Skills",
     skills: [
       {
-        title: "Figma",
+        title: "Frontend",
         description: (
-          <>Able to prototype in Figma with Once UI with unnatural speed.</>
+          <>
+            Building performant, accessible interfaces with React and Next.js. Focused on component
+            architecture, state management, and delivering a consistent user experience at scale.
+          </>
         ),
         tags: [
-          {
-            name: "Figma",
-            icon: "figma",
-          },
+          { name: "React", icon: "react" },
+          { name: "Next.js", icon: "nextjs" },
+          { name: "TypeScript", icon: "typescript" },
         ],
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-02.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-          {
-            src: "/images/projects/project-01/cover-03.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
+        images: [],
       },
       {
-        title: "Next.js",
+        title: "Backend & Database",
         description: (
-          <>Building next gen apps with Next.js + Once UI + Supabase.</>
+          <>
+            Designing and maintaining robust server-side systems using Node.js, .NET, and Laravel.
+            Strong experience with PostgreSQL — schema design, query optimisation, and data integrity
+            for high-stakes transactional systems.
+          </>
         ),
         tags: [
-          {
-            name: "JavaScript",
-            icon: "javascript",
-          },
-          {
-            name: "Next.js",
-            icon: "nextjs",
-          },
-          {
-            name: "Supabase",
-            icon: "supabase",
-          },
+          { name: "Node.js", icon: "nodejs" },
+          { name: "JavaScript", icon: "javascript" },
         ],
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-04.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
+        images: [],
       },
     ],
   },
@@ -235,8 +237,8 @@ const about: About = {
 const blog: Blog = {
   path: "/blog",
   label: "Blog",
-  title: "Writing about design and tech...",
-  description: `Read what ${person.name} has been up to recently`,
+  title: "Writing on software engineering and system design",
+  description: `Thoughts from ${person.name} on building scalable systems, maintainable code, and engineering practice.`,
   // Create new blog posts by adding a new .mdx file to app/blog/posts
   // All posts will be listed on the /blog route
 };
@@ -245,8 +247,8 @@ const work: Work = {
   path: "/work",
   label: "Work",
   title: `Projects – ${person.name}`,
-  description: `Design and dev projects by ${person.name}`,
-  // Create new project pages by adding a new .mdx file to app/blog/posts
+  description: `Selected engineering work by ${person.name} — enterprise systems, full-stack applications, and technical problem-solving.`,
+  // Create new project pages by adding a new .mdx file to app/work/projects
   // All projects will be listed on the /home and /work routes
 };
 
