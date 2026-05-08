@@ -8,6 +8,10 @@
     }
 }
 
+.avatar img {
+    object-position: center 25%;
+}
+
 @media (max-width: breakpoints.$s) {
     .textAlign {
         text-align: center;

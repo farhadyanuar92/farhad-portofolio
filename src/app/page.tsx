@@ -89,7 +89,7 @@ export default function Home() {
                 {about.avatar.display && (
                   <Avatar
                     marginRight="8"
-                    style={{ marginLeft: "-0.75rem" }}
+                    style={{ marginLeft: "-0.75rem", objectPosition: "center 25%" }}
                     src={person.avatar}
                     size="m"
                   />
