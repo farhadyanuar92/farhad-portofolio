@@ -1,44 +1,58 @@
 ---
 title: "Migrating a Legacy Healthcare Desktop System to the Web"
 publishedAt: "2022-06-01"
-summary: "Led the migration of an enterprise healthcare desktop application to a modern web stack, preserving complex business logic while improving maintainability and reducing operational overhead."
+summary: "Led the migration of an enterprise healthcare desktop application to a modern web stack — rebuilding the .NET backend with 90%+ xUnit test coverage, continuous SonarQube analysis, and a Next.js frontend, without disrupting live clinical operations."
 images:
   - "/images/projects/project-01/cover-01.jpg"
 team:
   - name: "Farhad Yanuar"
     role: "Software Engineer"
     avatar: "/images/avatar.jpg"
-    linkedIn: "https://www.linkedin.com/in/farhadyanuar/"
+    linkedIn: "https://www.linkedin.com/in/farhad-yanuar/"
 ---
 
 ## Overview
 
-A large healthcare organisation was running critical clinical workflows on an aging desktop application — tightly coupled, hard to maintain, and impossible to access remotely. The goal was to migrate this system to a modern web application without disrupting daily operations for clinical and administrative staff.
+A healthcare organisation was running critical clinical workflows on an aging Windows desktop application — tightly coupled, hard to maintain, and inaccessible outside the local network. The goal was to migrate the system to a modern web architecture without disrupting daily operations for clinical and administrative staff.
 
-The challenge was not just a technology migration — it was a full re-architecture of a system that had accumulated years of business logic, with no tolerance for functionality loss.
+This was not just a technology migration. It was a full re-architecture of a system carrying years of accumulated business logic, with zero tolerance for functionality loss and no acceptable downtime.
+
+## Engineering Highlights
+
+### 90%+ Unit Test Coverage on the .NET Backend
+
+The backend was rebuilt in **.NET (C#)** with a strict quality baseline from day one. Every service and domain rule was covered by **xUnit** unit tests, maintaining **90%+ test coverage** throughout the project. This was non-negotiable for a healthcare system where billing and clinical workflow logic had to be provably correct before any deployment.
+
+### Continuous Code Quality with SonarQube
+
+All code — backend and frontend — was wired into **SonarQube** for continuous static analysis. Every pull request was automatically analysed for bugs, code smells, security vulnerabilities, and duplication. Issues were resolved before merge, not discovered in production. This kept the codebase maintainable as the team iterated through migration phases.
+
+### Responsive Frontend in Next.js + TypeScript with Jest
+
+The frontend was built in **Next.js and TypeScript** — typed end-to-end to catch integration mistakes at compile time. Component-level **Jest unit tests** were written alongside every feature, with SonarQube enforcing coverage gates consistently.
 
 ## Key Challenges
 
-**Preserving complex domain logic.** The existing system encoded years of healthcare-specific rules — charge calculations, patient workflow states, role-based access rules — in ways that were often undocumented. Every requirement had to be reverse-engineered from the existing behaviour and validated with end users before reimplementation.
+**Preserving undocumented domain logic.** The desktop system encoded years of healthcare-specific rules — charge calculations, patient workflow states, role-based access — in ways that were rarely documented. Every rule had to be reverse-engineered from existing behaviour, validated with end users, and then covered by tests before reimplementation.
 
-**Zero-downtime cutover.** Clinical operations run continuously. The migration was designed to run in parallel with the legacy system, with a staged rollout that let departments switch over at their own pace while both systems stayed in sync.
+**Zero-downtime cutover.** Clinical operations run continuously. The migration ran in parallel with the legacy system using a staged rollout — departments switched at their own pace while both systems stayed in sync through an adapter layer over the existing database.
 
-**User adoption.** Replacing a tool people have used for years requires careful UX consideration. Workflows were redesigned to feel familiar while removing friction points the old system had normalised.
+**Maintaining quality under pressure.** Migrating a live system under client deadlines creates pressure to skip tests. Keeping SonarQube gates enforced and the xUnit suite green at every stage prevented that from happening.
 
 ## Technical Approach
 
-- **Incremental strangler fig migration** — new modules were built as independent web services and gradually replaced legacy components, avoiding a big-bang rewrite.
-- **API layer over legacy data** — a thin adapter layer exposed the existing database through a clean API, letting new frontend modules consume live data before the full backend was rewritten.
-- **Role-based access control** — rebuilt from scratch to match the organisation's access hierarchy, with proper session management and audit logging.
-- **Component-driven frontend** — React components mapped directly to clinical workflows, making it straightforward to validate behaviour with domain experts.
+- **Strangler fig migration** — new modules replaced legacy components incrementally, avoiding a big-bang rewrite and enabling staged validation with real users.
+- **Adapter layer** — a thin .NET API exposed the existing database to new frontend modules, decoupling frontend delivery from full backend rewrite timelines.
+- **RBAC rebuilt from scratch** — role-based access control reimplemented with proper session management, audit logging, and alignment to the organisation's actual access hierarchy.
+- **Quality gates enforced throughout** — xUnit + SonarQube on the backend, Jest + SonarQube on the frontend. No exceptions.
 
 ## Stack
 
-- **Frontend:** React, Next.js
-- **Backend:** .NET, Node.js, Laravel
+- **Backend:** .NET (C#), xUnit, SonarQube
+- **Frontend:** Next.js, TypeScript, Jest, SonarQube
 - **Database:** PostgreSQL
-- **Infrastructure:** On-premise deployment with web-accessible front end
+- **Infrastructure:** On-premise deployment, web-accessible frontend
 
 ## Outcome
 
-The migration delivered a system that clinical staff could access from any device without installing software, reduced IT deployment overhead significantly, and gave the engineering team a codebase they could actually maintain and extend. The staged rollout ensured no disruption to patient-facing operations during the transition.
+Clinical staff gained access to the system from any device without installing software. The engineering team inherited a codebase with real test coverage and automated quality analysis — something the old desktop application never had. The staged rollout delivered the migration without a single disruption to patient-facing operations.

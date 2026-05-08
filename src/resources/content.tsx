@@ -60,7 +60,7 @@ const home: Home = {
   label: "Home",
   title: `${person.name} – Software Engineer`,
   description: `Portfolio of ${person.name}, a software engineer specialising in enterprise web systems, scalable architecture, and full-stack development.`,
-  headline: <>Engineering systems that scale, last, and matter</>,
+  headline: <>Full-stack engineer. Enterprise systems. Production-ready code.</>,
   featured: {
     display: true,
     title: (
@@ -76,8 +76,8 @@ const home: Home = {
   },
   subline: (
     <>
-      I'm Farhad, a software engineer based in Jakarta with 4+ years building enterprise-grade systems.
-      <br /> I focus on clean architecture, maintainable code, and shipping solutions that actually hold up in production.
+      Software engineer with 4+ years building enterprise systems in healthcare and distribution.
+      <br />Full-stack across .NET, Node.js, React, and Next.js — from greenfield architecture to production ownership.
     </>
   ),
 };
@@ -103,11 +103,12 @@ const about: About = {
     title: "Introduction",
     description: (
       <>
-        I'm a software engineer based in Tangerang, Indonesia with 4+ years of experience across enterprise
-        healthcare systems. I work across the full stack — from .NET and Node.js backends to React and
-        Next.js frontends — and I've owned everything from production incidents and change requests to
-        greenfield system design. I care about writing code that's maintainable long after the sprint ends,
-        and I communicate directly with clients to make sure what we build actually solves the right problem.
+        I'm a software engineer based in Tangerang, Indonesia with 4+ years building and maintaining
+        enterprise web systems — primarily in healthcare and distribution. My work spans the full stack:
+        backend services in .NET and Node.js, transactional APIs, and production frontends in React and
+        Next.js. I've owned systems end-to-end — from architecture and implementation through to live
+        incident response, client communication, and iterative delivery. I write code with the person
+        who maintains it in mind. Currently exploring workflow automation with n8n and applied data analysis.
       </>
     ),
   },
@@ -118,26 +119,27 @@ const about: About = {
       {
         company: "Bithealth",
         timeframe: "Apr 2024 – Present",
-        role: "Software Engineer (Lead Maintenance Support)",
+        role: "Software Engineer — Lead Maintenance",
         achievements: [
           <>
-            Lead maintenance for Siloam Hospital's web applications — autonomously owning three concurrent
-            projects: Master Data Management (MDM), Human Capital Management System (HCMS), and Doctor
-            Governance (DDG).
+            Sole engineer responsible for three concurrent Siloam Hospital web applications in production:
+            Master Data Management (MDM), Human Capital Management System (HCMS), and Doctor Governance (DDG).
           </>,
           <>
-            Sole point of contact for production issues — triaging, resolving, and communicating directly
-            with clients on every incident, change request, and service request through to closure.
+            Primary point of contact between engineering and client — triaging incidents, delivering resolutions,
+            and managing every change request and service request from intake through to sign-off.
           </>,
           <>
-            Integrated Midtrans payment gateway for online appointment booking, delivering a secure and
-            seamless transaction flow end-to-end.
+            Integrated Midtrans payment gateway into the online appointment booking flow, handling
+            transaction state, failure recovery, and end-to-end testing in a live production environment.
           </>,
           <>
-            Assist and supervise colleagues on RPA (Robotic Process Automation) logic issues.
+            Supervised colleagues on RPA (Robotic Process Automation) logic — diagnosing automation
+            failures and establishing reliable process flows.
           </>,
           <>
-            Own monthly maintenance reporting with Google Data Studio, with direct reports delivered to the COO.
+            Delivered monthly maintenance reports via Google Data Studio directly to the COO,
+            covering system health, issue resolution rates, and outstanding work.
           </>,
         ],
         images: [],
@@ -145,25 +147,25 @@ const about: About = {
       {
         company: "Bithealth",
         timeframe: "Jan 2022 – Apr 2024",
-        role: "Associate Software Engineer (Fullstack)",
+        role: "Associate Software Engineer — Fullstack",
         achievements: [
           <>
-            Analysed an existing Windows desktop system and led the migration to a web-based architecture —
-            rebuilding the backend in .NET with 90%+ unit test coverage via xUnit, and continuous code
-            quality analysis through SonarQube.
+            Led migration of a legacy Windows desktop healthcare application to a web architecture.
+            Rebuilt the backend in .NET (C#) with xUnit unit tests at 90%+ coverage and SonarQube
+            enforcing continuous static analysis — every PR gated before merge.
           </>,
           <>
-            Built a responsive, maintainable frontend in Next.js and TypeScript with comprehensive Jest
-            unit tests maintained alongside every feature.
+            Built the frontend in Next.js and TypeScript with Jest unit tests on every feature and
+            SonarQube quality gates maintained throughout.
           </>,
           <>
-            Designed and implemented a ledger transaction system covering admission, billing calculation,
-            and integration with external financial systems — ensuring accurate data flow across all
-            connected services.
+            Designed and implemented a ledger transaction system covering patient admission charges,
+            billing calculation, and integration with external financial systems — ensuring accurate,
+            auditable data flow across all connected services.
           </>,
           <>
-            Analysed customer requirements and translated them into technical specifications, proposing
-            architecture and implementation approaches directly to stakeholders.
+            Worked directly with clients to analyse requirements, propose technical approaches, and
+            validate implementations — bridging business intent and engineering execution.
           </>,
         ],
         images: [],
@@ -171,11 +173,11 @@ const about: About = {
       {
         company: "The Court",
         timeframe: "Mar 2024 – Sep 2024",
-        role: "Frontend Developer (Part-Time)",
+        role: "Frontend Developer — Part-Time",
         achievements: [
           <>
-            Built and maintained the UI for a real-time football match tracking system — creating
-            responsive pages and robust real-time data logic for live match input and analysis.
+            Built responsive UI and real-time data logic for a live football match tracking system,
+            handling rapid state updates and data entry workflows under live match conditions.
           </>,
         ],
         images: [],
@@ -204,29 +206,46 @@ const about: About = {
         title: "Frontend",
         description: (
           <>
-            Building performant, accessible interfaces with React and Next.js. Focused on component
-            architecture, state management, and delivering a consistent user experience at scale.
+            Production interfaces in React and Next.js with TypeScript. Component architecture,
+            state management, unit testing with Jest, and continuous quality analysis with SonarQube.
           </>
         ),
         tags: [
           { name: "React", icon: "react" },
           { name: "Next.js", icon: "nextjs" },
           { name: "TypeScript", icon: "typescript" },
+          { name: "JavaScript", icon: "javascript" },
         ],
         images: [],
       },
       {
-        title: "Backend & Database",
+        title: "Backend",
         description: (
           <>
-            Designing and maintaining robust server-side systems using Node.js, .NET, and Laravel.
-            Strong experience with PostgreSQL — schema design, query optimisation, and data integrity
-            for high-stakes transactional systems.
+            RESTful API design and service architecture across .NET (C#), Node.js/Express, and
+            Laravel (PHP). Unit testing with xUnit. Experience integrating payment gateways,
+            third-party APIs, and multi-system financial data flows.
           </>
         ),
         tags: [
           { name: "Node.js", icon: "nodejs" },
-          { name: "JavaScript", icon: "javascript" },
+          { name: ".NET", icon: "dotnet" },
+          { name: "Laravel", icon: "laravel" },
+        ],
+        images: [],
+      },
+      {
+        title: "Database & Infrastructure",
+        description: (
+          <>
+            PostgreSQL as the primary database — schema design, transactional integrity, query
+            optimisation, and audit trail patterns. Experience with MongoDB and MySQL.
+            Containerised deployments with Docker; multi-stage builds for lean production images.
+          </>
+        ),
+        tags: [
+          { name: "PostgreSQL", icon: "postgresql" },
+          { name: "Docker", icon: "docker" },
         ],
         images: [],
       },
