@@ -17,13 +17,31 @@ import { Footer, Header, RouteGuard, Providers } from "@/components";
 import { baseURL, effects, fonts, style, dataStyle, home } from "@/resources";
 
 export async function generateMetadata() {
-  return Meta.generate({
+  const base = Meta.generate({
     title: home.title,
     description: home.description,
     baseURL: baseURL,
     path: home.path,
     image: home.image,
   });
+  return {
+    ...base,
+    openGraph: {
+      ...(base.openGraph as object),
+      images: [
+        {
+          url: home.image,
+          width: 1280,
+          height: 720,
+          alt: home.title,
+        },
+      ],
+    },
+    twitter: {
+      ...(base.twitter as object),
+      images: [home.image],
+    },
+  };
 }
 
 export default async function RootLayout({
