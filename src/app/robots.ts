@@ -5,6 +5,11 @@ export default function robots() {
     rules: [
       {
         userAgent: "*",
+        allow: "/",
+      },
+      {
+        userAgent: "facebookexternalhit",
+        allow: "/",
       },
     ],
     sitemap: `${baseURL}/sitemap.xml`,

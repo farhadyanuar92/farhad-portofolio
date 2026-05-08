@@ -53,7 +53,7 @@ const social: Social = [
 
 const home: Home = {
   path: "/",
-  image: `/api/og/generate?title=${encodeURIComponent("Farhad Yanuar – Software Engineer")}`,
+  image: `/images/og/home.png`,
   label: "Home",
   title: `${person.name} – Software Engineer`,
   description: `Portfolio of ${person.name}, a software engineer specialising in enterprise web systems, scalable architecture, and full-stack development.`,
