@@ -1,31 +1,54 @@
 ---
-title: "This Portfolio — Built with Next.js and Once UI"
-publishedAt: "2025-05-01"
-summary: "Designed and built my personal portfolio as a minimal, performant Next.js application — focusing on clean structure, fast load times, and content that communicates clearly."
+title: "Enterprise Maintenance & Production Support"
+publishedAt: "2024-04-01"
+summary: "Maintaining and stabilising critical enterprise healthcare web systems in active production — handling incidents, service requests, SLA reporting, and complex debugging across multiple simultaneous platforms."
 images:
-  - "/images/projects/project-01/cover-04.jpg"
+  - "/images/projects/project-01/cover-01.jpg"
+  - "/images/projects/project-01/image-02.jpg"
 team:
   - name: "Farhad Yanuar"
-    role: "Software Engineer"
+    role: "Software Engineer — Lead Maintenance"
     avatar: "/images/avatar.jpg"
-    linkedIn: "https://www.linkedin.com/in/farhadyanuar/"
-link: "https://github.com/farhadyanuar92/web-portofolio"
+    linkedIn: "https://www.linkedin.com/in/farhad-yanuar/"
 ---
 
 ## Overview
 
-A personal portfolio site built to be fast, minimal, and readable. The goal was simple: present work clearly without getting in the way. Built on Next.js App Router with the Once UI component system, deployed as a static-first site.
+As sole engineer for Lead Maintenance at Bithealth, I was independently responsible for three concurrent enterprise healthcare web applications in production — the Master Data Management (MDM) system, the Human Capital Management System (HCMS), and the Doctor Governance (DDG) platform — all deployed for Siloam Hospitals Group.
 
-## Technical Decisions
+The role combined production incident response, root cause analysis, service request delivery, change request implementation, and ongoing system enhancement — all while managing direct communication with the client's operational and technical teams.
 
-- **Next.js App Router** — leverages React Server Components for zero-JS-by-default pages, keeping client bundles small.
-- **MDX for project content** — project and blog content lives in `.mdx` files, keeping writing separate from component logic and making it easy to update without touching the codebase.
-- **Once UI** — used as the base component system for layout primitives, letting me focus on content and information architecture rather than rebuilding common UI patterns.
-- **TypeScript throughout** — all configuration and content types are fully typed, catching mistakes early.
+## Problem
 
-## Stack
+Production healthcare systems don't pause for engineering cycles. Incidents, user-reported issues, and change requests arrive continuously and often simultaneously. The systems were undocumented and had been built by teams that were no longer available. Root causes frequently crossed system boundaries — issues that appeared to be frontend bugs turned out to be integration failures or data inconsistencies upstream. The challenge was maintaining operational reliability across three live platforms simultaneously without a team.
 
-- **Next.js, React, TypeScript**
-- **Once UI component system**
-- **MDX**
-- **Deployed on Vercel**
+## My Role
+
+Sole engineer responsible for all production operations across MDM, HCMS, and DDG. Managed incident triage, root cause investigation, temporary workaround coordination, and permanent fix implementation. Served as the primary point of contact between engineering and the client — handling every change request and service request from intake through to sign-off. Also responsible for monthly SLA reporting delivered directly to the COO via Google Data Studio.
+
+## Key Challenges
+
+**Diagnosing issues in undocumented production systems.** Most incidents arrived with only a symptom description — no logs, no reproduction steps, no system context. Identifying root causes required reading unfamiliar codebases under time pressure, with live users waiting.
+
+**Managing simultaneous incidents across three platforms.** With three independent systems in production, incidents rarely arrived one at a time. Prioritising, triaging, and communicating status across multiple active issues — each with different users, business impact, and urgency — required structured operational discipline.
+
+**Changing requirements without breaking production.** Business requirements changed frequently — new hospital workflows, regulatory changes, operational process updates. Implementing changes in active production systems without introducing regressions required careful scoping, testing, and staged deployment.
+
+## Technical Highlights
+
+- Solved a **race condition causing duplicate transaction code generation** by implementing PostgreSQL advisory locking mechanisms and sequential queue handling — eliminating duplicate codes that had been causing financial reconciliation failures in production
+- Optimised heavy dashboard queries by **redesigning API architecture from deeply nested relational joins into distributed lightweight endpoints** — reducing dashboard load times from 8–12 seconds to under 2 seconds under production load
+- Implemented a **RabbitMQ-based retry architecture** for third-party transactional integrations, with resend and recovery capabilities — replacing fire-and-forget HTTP calls that were silently failing and causing data loss
+- Integrated **Midtrans payment gateway** into the online appointment booking flow, handling transaction state machines, failure recovery, and end-to-end validation in a live production environment
+- Supervised **RPA (Robotic Process Automation) logic** — diagnosing automation failures, establishing reliable process flows, and ensuring automation didn't create data inconsistencies in connected systems
+- Delivered monthly **SLA reporting and issue trend analysis** via Google Data Studio to the COO — covering resolution rates, open incidents, response times, and outstanding work
+
+## Engineering Decisions
+
+**Advisory locking over application-level deduplication.** The duplicate transaction code issue was caused by concurrent requests generating codes simultaneously before database writes completed. Application-level checks (read → check → write) are inherently racy. PostgreSQL advisory locks provided a serialization point at the database level — the right place to enforce uniqueness, independent of application scaling.
+
+**Distributed endpoints over query optimisation for the dashboard fix.** The dashboard was fetching deeply nested joins across multiple large tables in a single query. Rather than attempting to optimise the join, the API was redesigned to fetch each data segment independently and compose the response. This made each segment cacheable, independently deployable, and easier to debug — a structural improvement rather than a performance patch.
+
+## Outcome
+
+All three platforms maintained production stability throughout the engagement. The race condition fix eliminated a class of financial data corruption that had been occurring sporadically in production. Dashboard performance improvements directly reduced user-reported frustration across hospital staff who used the systems daily. The RabbitMQ integration stopped silent data loss in third-party transaction flows. Monthly SLA reporting gave the client's leadership team visibility into system health for the first time.

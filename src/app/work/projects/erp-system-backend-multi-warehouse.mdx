@@ -1,12 +1,13 @@
 ---
-title: "ERP System Backend — Multi-Warehouse Distribution"
+title: "Inventory System ERP"
 publishedAt: "2024-10-01"
-summary: "Designed and built a production-grade ERP API for a multi-warehouse product distribution business — covering procurement, inventory, sales, point-of-sale, financial ledger, and operational cost tracking across a layered Node.js / Express / PostgreSQL architecture."
+summary: "Building a centralised ERP platform for a multi-warehouse distribution business — covering inventory, sales, point-of-sale, finance, payroll, and operational reporting across multiple business units."
 images:
   - "/images/projects/project-01/cover-01.jpg"
+  - "/images/projects/project-01/image-01.jpg"
 team:
   - name: "Farhad Yanuar"
-    role: "Software Engineer"
+    role: "Full-Stack Engineer"
     avatar: "/images/avatar.jpg"
     linkedIn: "https://www.linkedin.com/in/farhad-yanuar/"
 link: "https://dev.tjahayaberkatabadi.com/login/"
@@ -14,56 +15,44 @@ link: "https://dev.tjahayaberkatabadi.com/login/"
 
 ## Overview
 
-A full-stack Enterprise Resource Planning backend built for a product distribution and retail business operating across multiple warehouses. The system manages the complete operational lifecycle — from procurement and inventory to sales, point-of-sale retail, financial ledger tracking, and daily cost management — through a RESTful API consumed by a separate frontend application.
+A distribution business operating across multiple warehouses was running entirely on fragmented manual workflows — spreadsheets, disconnected tools, and paper-based processes that created reconciliation overhead, inventory inaccuracies, and reporting delays. This project built a centralised ERP platform from the ground up to replace those workflows with a single, integrated system covering inventory, sales, procurement, point-of-sale, financial ledger, payroll, and daily operational cost tracking.
 
-The platform supports multi-warehouse operations with role-scoped data visibility, enforced at the route level across defined roles: Administrator, Warehouse Head (Kepala Gudang), and Warehouse Admin.
+The system serves multiple roles — Administrator, Warehouse Head, and Warehouse Admin — with data visibility scoped at the route level to each warehouse and role.
 
-## Core Modules
+## Problem
 
-**Inventory Engine**
-Multi-warehouse stock ledger with rack-level slot management, minimum stock thresholds, and soft-delete audit trails. Handles the complete inbound and outbound flow: Delivery Orders (Surat Jalan) with approval workflow, inter-warehouse Internal Transfers, Stock Opname (physical count + variance reconciliation), and Goods Adjustment documents for corrections and returns. Every stock mutation is recorded to an immutable adjustment history log tagged by operation type and source document.
+The business had no single source of truth for inventory, sales, or finance. Stock counts were manual and error-prone. Sales orders were tracked in spreadsheets. Financial reconciliation happened manually at month-end, consuming days of staff time. There was no visibility into per-warehouse margins, no audit trail for stock movements, and no systematic way to track outstanding customer debt.
 
-**Sales & Procurement**
-A B2B Sales Order module with a full lifecycle (creation → approval → shipping), barter transaction support (goods-for-goods exchange), loan/consignment flagging, and debt management with due date tracking. Gross margin is tracked per order (cost vs. revenue). A mirrored Purchase Order module handles vendor-side procurement with the same capabilities.
+## My Role
 
-**Point of Sale**
-Shift-based cashier session management, queue number assignment, multi-payment-type support, walk-in transactions, credit sales with debt tracking, and email receipt dispatch with PDF attachment. Products can be favourited for fast POS access.
+Designed and built the core web application — backend API architecture in Node.js and Express, database design in PostgreSQL with Sequelize, and all 25+ functional modules from inventory and sales through to financial ledger and payroll. Also responsible for user onboarding, operational training, and aligning system behavior with real-world business workflows directly validated with the operations team during development.
 
-**Financial Ledger**
-Monthly Balance Sheet modules covering equity (share capital, retained earnings), current and non-current assets (with fixed asset depreciation scheduling), and short/long-term liabilities. Daily operational cost tracking across three categories: logistics costs (tied to sales orders with driver/vehicle/toll tracking), employee payroll (daily salary, bonus, and debt deduction), and ad-hoc unexpected costs.
+## Key Challenges
 
-**Reporting & Export**
-Excel reports generated for every major operational document — stock, delivery orders, transfers, sales, purchases, POS, opname, and financials — via ExcelJS. PDF generation via pdf-lib and Handlebars for structured document templates.
+**Replacing deeply entrenched manual workflows.** Users had built operational habits around spreadsheets and paper processes over years. The system had to match how the business actually operated — not impose a different model — or adoption would fail regardless of technical quality.
 
-## Engineering Highlights
+**Complex multi-module transactional integrity.** Creating a Sales Order requires simultaneously creating line items, deducting stock from the correct warehouse rack, writing an immutable adjustment history entry, and updating customer debt — all as a single atomic operation. Any partial failure produces inconsistent state across financial and inventory records.
 
-**Atomic transactions across service boundaries.** All multi-table write operations (create SO + line items + deduct stock + write adjustment history) run inside Sequelize managed transactions. Services accept an external transaction parameter (`t = null`) to support chaining across service boundaries — a deliberate pattern for nested transactional integrity.
+**High-volume reporting under operational load.** The business generates Excel reports across every operational document type — delivery orders, stock opname, purchase orders, financial statements — while the system is actively in use. Report generation had to run without degrading response times for transactional operations.
 
-**Unique code generation with collision prevention.** A shared `codeGenerator` utility generates prefixed document codes (e.g. `SO-12345678`, `POS-87654321`) using a `do-while` loop that re-generates on collision — guaranteeing database-level uniqueness without sequence dependencies.
+## Technical Highlights
 
-**Reusable query builder.** `buildQueryOptions` and `buildPaginationResponse` centralise pagination, filtering, search, and date-range logic, eliminating repetitive query construction across 25+ service files.
+- **Atomic transactions across service boundaries.** All multi-table write operations run inside Sequelize managed transactions. Services accept an external transaction parameter (`t = null`) to support chaining across service boundaries — a deliberate pattern for nested transactional integrity across 25+ modules
+- **Built an internal printer service architecture** enabling remote cashier printing through API-triggered local print servers — eliminating the need for direct device access from the web application
+- **Unique document code generation with collision prevention.** A shared `codeGenerator` utility generates prefixed codes (e.g. `SO-12345678`, `POS-87654321`) using a `do-while` loop that re-generates on collision, guaranteeing uniqueness without database sequence dependencies
+- **Reusable query builder.** `buildQueryOptions` and `buildPaginationResponse` centralise pagination, filtering, search, and date-range logic across 25+ service files — eliminating repetitive query construction and keeping services focused on domain logic
+- **DB-backed caching layer** with configurable TTL (default 3 hours) via a `getOrSetCache` helper — avoiding a Redis infrastructure dependency while keeping dashboard query performance acceptable at operational scale
+- **Excel report generation** via ExcelJS with dynamic transaction logic, custom formatting, and multi-sheet structures across every operational document type
+- Delivered **user onboarding and operational training** before full system migration — ensuring staff could operate the system confidently before manual workflows were retired
 
-**Role-scoped data isolation.** Notification counts and queries are dynamically scoped by `user.roleId` and `user.warehouseId` — enforcing data boundaries without a multi-tenancy framework.
+## Engineering Decisions
 
-**DB-backed caching layer.** Rather than a Redis dependency, a lightweight cache is implemented via a dedicated database table with configurable TTL (default 3 hours). A `getOrSetCache` helper abstracts read/write/refresh logic — a pragmatic choice that avoids external infrastructure at this scale.
+**Role-scoped data isolation without a multi-tenancy framework.** Notification counts, stock queries, and sales data are dynamically filtered by `user.roleId` and `user.warehouseId` at the query level — enforcing data boundaries with standard Sequelize where clauses rather than a schema-per-tenant or row-level security approach. Simple, maintainable, and sufficient for the operational scale.
 
-**Paranoid soft-delete with actor tracking.** Critical tables use Sequelize paranoid delete, preserving data while capturing `deletedBy` and `restoredBy` references for full auditability and recovery.
+**Paranoid soft-delete with actor tracking.** Critical tables use Sequelize's paranoid delete, preserving deleted records while capturing `deletedBy` and `restoredBy` references. This gave the operations team confidence that accidental deletions could be recovered, and provided a full audit trail for compliance.
 
-**Encrypted password transit.** Passwords are encrypted client-side (crypto-js) and decrypted server-side before bcrypt hashing — an additional obfuscation layer on top of HTTPS.
-
-## Stack
-
-- **Runtime:** Node.js 18
-- **Framework:** Express.js
-- **ORM:** Sequelize 6 (PostgreSQL)
-- **Auth:** JWT + bcrypt
-- **Validation:** Yup
-- **Reporting:** ExcelJS, pdf-lib, Handlebars
-- **Email:** Nodemailer (Gmail SMTP)
-- **Containerisation:** Docker multi-stage build (Node 18 Alpine), non-root execution, graceful shutdown
+**Controller → Service → Model layering enforced consistently.** All 25+ modules follow the same architecture: route → controller (request/response) → service (business logic) → model (data access). No business logic in controllers, no queries in services. This made the codebase predictable and allowed new modules to be added quickly without re-learning the structure.
 
 ## Outcome
 
-The system orchestrates the complete operational flow of a distribution business across 25+ functional modules. The architecture — Controller → Service → Model with centralised helpers — kept the codebase maintainable at scale. The reusable patterns (query builder, transaction chaining, code generation) consistently reduced per-feature development time as the module count grew.
-
-**Live:** [dev.tjahayaberkatabadi.com](https://dev.tjahayaberkatabadi.com/login/) · **Source:** [github.com/alexanderhorison/erp-system-be](https://github.com/alexanderhorison/erp-system-be)
+The system replaced fragmented manual operations across procurement, inventory, sales, POS, finance, and payroll in a single platform. Inventory accuracy improved immediately — stock discrepancies that previously required manual audits are now captured automatically by the adjustment history. Monthly financial reconciliation dropped from days to hours. The operations team has full visibility into per-warehouse activity, outstanding customer debt, and daily cost tracking in real time.

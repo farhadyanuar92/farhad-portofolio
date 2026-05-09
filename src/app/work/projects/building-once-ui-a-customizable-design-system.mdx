@@ -1,42 +1,51 @@
 ---
-title: "Building a Shared Component Library for Enterprise Healthcare"
-publishedAt: "2023-03-01"
-summary: "Designed and built a shared React component library to standardise UI patterns across a suite of internal healthcare applications, reducing duplication and speeding up feature delivery."
+title: "Klinik Mata Nusantara"
+publishedAt: "2024-03-01"
+summary: "Migrating a legacy TYPO3 hospital website into a modern Laravel platform — preserving multilingual content, production appointment workflows, and payment integrations without operational disruption."
 images:
-  - "/images/projects/project-01/cover-01.jpg"
   - "/images/projects/project-01/cover-02.jpg"
+  - "/images/projects/project-01/cover-04.jpg"
 team:
   - name: "Farhad Yanuar"
-    role: "Software Engineer"
+    role: "Project Lead & Full-Stack Engineer"
     avatar: "/images/avatar.jpg"
-    linkedIn: "https://www.linkedin.com/in/farhadyanuar/"
+    linkedIn: "https://www.linkedin.com/in/farhad-yanuar/"
 ---
 
 ## Overview
 
-Across a growing suite of internal healthcare applications, UI inconsistency had become a real cost — teams were solving the same problems repeatedly, styles diverged between products, and onboarding new engineers meant re-learning each application's patterns. This project established a shared React component library to serve as the foundation for all internal front-end work.
+Klinik Mata Nusantara operated a public-facing hospital website on TYPO3 — a legacy CMS with a complex internal data model, limited modern tooling, and a team with no remaining TYPO3 expertise. The site served multilingual patient-facing content, online appointment booking, and payment processing. The business needed to migrate to a maintainable, modern platform without losing any existing content or disrupting the live booking and payment workflows that patients relied on.
+
+## Problem
+
+The existing TYPO3 system was a maintenance liability. Content updates required specialist knowledge the team no longer had, and extending the platform with new features was prohibitively complex. At the same time, the site was actively in production — patients were booking appointments and processing payments daily. A failed migration or operational disruption had direct patient impact.
+
+## My Role
+
+Project lead and full-stack engineer. Responsible for project delivery, timeline coordination, mentoring developers, user collaboration, and hands-on implementation of migration logic, payment integration, and multilingual architecture. Also responsible for migration stability — ensuring the transition delivered functionally equivalent behavior across all existing workflows.
 
 ## Key Challenges
 
-**Designing for reuse without over-engineering.** Components needed to be flexible enough for different contexts without becoming so generic they were useless. Finding the right abstraction level took iteration and direct input from the teams who would use them.
+**Reverse-engineering TYPO3 data structures.** TYPO3 stores content in a highly normalised, plugin-specific schema with minimal documentation. Understanding which tables mapped to which content types, how relationships were stored, and how multilingual content was structured required significant research and direct inspection of the production database.
 
-**Backwards compatibility.** Existing applications were mid-development. The library had to be adoptable incrementally — teams could migrate at their own pace without a forced upgrade cycle.
+**Preserving multilingual content and SEO continuity.** The site served Indonesian and English content, with URL structures that were indexed by search engines. Migration had to preserve content accuracy, language associations, and URL patterns — any broken links or missing content would affect patient-facing discoverability.
 
-**Documentation that developers would actually read.** A component library is only valuable if people know how to use it. Time was invested in clear, example-driven documentation alongside the components themselves.
+**Live payment and booking systems.** The Midtrans payment integration and appointment booking system could not be taken offline during migration. The cutover had to be planned and executed with the existing systems remaining fully operational until the final switch.
 
-## Technical Approach
+## Technical Highlights
 
-- **Atomic design structure** — components organised from primitives (buttons, inputs, typography) up to composed patterns (forms, data tables, modal flows).
-- **Design token system** — colours, spacing, and typography defined as tokens, making theming and visual consistency manageable across products.
-- **TypeScript-first** — all components fully typed, providing IDE support and catching integration mistakes at compile time rather than runtime.
-- **Accessibility by default** — ARIA attributes, keyboard navigation, and focus management built into every interactive component.
+- Researched TYPO3 internals and wrote custom migration scripts to safely extract and transform existing production content into the Laravel data model — preserving multilingual associations and content hierarchy
+- Integrated **Midtrans payment gateway** for debit and credit card transactions, implementing webhook handling, transaction state management, and failure recovery flows
+- Built a **multilingual architecture** using Laravel's localization system, supporting Indonesian and English with correct URL routing and content fallback behavior
+- Implemented appointment booking workflows that matched the operational logic of the existing system — validated against clinic staff before cutover
+- Successfully completed production migration with **zero booking or payment disruption** during the transition window
 
-## Stack
+## Engineering Decisions
 
-- **React, TypeScript, Next.js**
-- **CSS Modules / design tokens**
-- **Internal package registry**
+**Migration scripts over manual re-entry.** Given the volume of existing content — doctor profiles, service pages, promotional content, multilingual variants — manual re-entry was not viable. Custom PHP scripts extracted and transformed TYPO3's internal structures directly, reducing the migration window and eliminating manual error.
+
+**Parallel deployment before cutover.** The new Laravel application ran in a staging environment that mirrored production data until the team had validated all content, workflows, and payment paths. The final cutover was a DNS switch, not an application deployment — keeping rollback risk minimal.
 
 ## Outcome
 
-Adoption across internal applications reduced duplicated UI code significantly and shortened the time needed to build new feature screens. Engineers spent less time on visual consistency and more on product logic. The library became the default starting point for all new internal projects.
+The clinic migrated to a maintainable Laravel platform with full multilingual support and operational parity across all existing workflows. The internal team gained the ability to manage content without specialist CMS knowledge. Payment and booking systems continued without interruption. The new platform reduced content update effort from days to minutes.

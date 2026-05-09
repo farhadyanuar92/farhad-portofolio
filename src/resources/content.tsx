@@ -57,24 +57,24 @@ const home: Home = {
   label: "Home",
   title: `${person.name} – Software Engineer`,
   description: `Portfolio of ${person.name}, a software engineer specialising in enterprise web systems, scalable architecture, and full-stack development.`,
-  headline: <>Full-stack engineer. Enterprise systems. Production-ready code.</>,
+  headline: <>Enterprise systems. Production ownership. Full-stack engineering.</>,
   featured: {
     display: true,
     title: (
       <Row gap="12" vertical="center">
-        <strong className="ml-4">ERP System Backend</strong>{" "}
+        <strong className="ml-4">Kairos Finance Ledger</strong>{" "}
         <Line background="brand-alpha-strong" vert height="20" />
         <Text marginRight="4" onBackground="brand-medium">
           Featured work
         </Text>
       </Row>
     ),
-    href: "/work/erp-system-backend-multi-warehouse",
+    href: "/work/migrating-legacy-healthcare-system-to-web",
   },
   subline: (
     <>
-      Software engineer with 4+ years building enterprise systems in healthcare and distribution.
-      <br />Full-stack across .NET, Node.js, React, and Next.js — from greenfield architecture to production ownership.
+      Full-stack software engineer specialising in enterprise systems, scalable backend architecture, and production-grade web applications.
+      <br />4+ years across healthcare and operational platforms — from greenfield architecture to live production ownership.
     </>
   ),
 };
@@ -100,12 +100,20 @@ const about: About = {
     title: "Introduction",
     description: (
       <>
-        I'm a software engineer based in Tangerang, Indonesia with 4+ years building and maintaining
-        enterprise web systems — primarily in healthcare and distribution. My work spans the full stack:
-        backend services in .NET and Node.js, transactional APIs, and production frontends in React and
-        Next.js. I've owned systems end-to-end — from architecture and implementation through to live
-        incident response, client communication, and iterative delivery. I write code with the person
-        who maintains it in mind. Currently exploring workflow automation with n8n and applied data analysis.
+        I'm Farhad Yanuar, a full-stack software engineer specialising in enterprise systems, scalable
+        backend architecture, and production-grade web applications. After graduating from Hacktiv8's
+        Fullstack JavaScript program, I've worked across healthcare and operational platforms using React,
+        Next.js, Node.js, PostgreSQL, and .NET.
+        <br /><br />
+        Previously, I served as Lead Maintenance Support, independently overseeing three enterprise systems
+        simultaneously. My responsibilities ranged from diagnosing critical production issues and identifying
+        root causes to coordinating temporary operational workarounds and implementing permanent long-term fixes
+        — ensuring business continuity while supporting daily operational workflows.
+        <br /><br />
+        Solving real-world operational problems has shaped the way I approach engineering. Working closely
+        with users, mentoring colleagues, and learning from experienced managers broadened my perspective:
+        software engineering is not only about writing code — it's about understanding problems, communicating
+        effectively, and building solutions that genuinely help users and business operations.
       </>
     ),
   },

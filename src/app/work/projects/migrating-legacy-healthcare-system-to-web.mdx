@@ -1,58 +1,55 @@
 ---
-title: "Migrating a Legacy Healthcare Desktop System to the Web"
-publishedAt: "2022-06-01"
-summary: "Led the migration of an enterprise healthcare desktop application to a modern web stack — rebuilding the .NET backend with 90%+ xUnit test coverage, continuous SonarQube analysis, and a Next.js frontend, without disrupting live clinical operations."
+title: "Kairos Finance Ledger Accounting"
+publishedAt: "2023-06-01"
+summary: "Migrating a mission-critical hospital finance system from a legacy Windows desktop application to a scalable web platform — covering inpatient, outpatient, and financial transaction workflows across more than 30 hospitals."
 images:
   - "/images/projects/project-01/cover-01.jpg"
+  - "/images/projects/project-01/cover-02.jpg"
 team:
   - name: "Farhad Yanuar"
-    role: "Software Engineer"
+    role: "Full-Stack Engineer"
     avatar: "/images/avatar.jpg"
     linkedIn: "https://www.linkedin.com/in/farhad-yanuar/"
 ---
 
 ## Overview
 
-A healthcare organisation was running critical clinical workflows on an aging Windows desktop application — tightly coupled, hard to maintain, and inaccessible outside the local network. The goal was to migrate the system to a modern web architecture without disrupting daily operations for clinical and administrative staff.
+Kairos is a large-scale financial ledger system supporting hospital operations across more than 30 hospitals. The platform handles inpatient and outpatient billing, admission workflows, transaction processing, and financial reporting — all workflows that had previously run on a legacy Windows desktop application accumulated over years of production use.
 
-This was not just a technology migration. It was a full re-architecture of a system carrying years of accumulated business logic, with zero tolerance for functionality loss and no acceptable downtime.
+The project was not a greenfield build. It was a high-stakes migration of a live system, where the web application had to run in parallel with the desktop system until a full cutover was possible. Every transaction processed had a direct financial consequence for the hospital's operational revenue.
 
-## Engineering Highlights
+## Problem
 
-### 90%+ Unit Test Coverage on the .NET Backend
+The existing desktop system was tightly coupled, undocumented, and inaccessible outside the local hospital network. Business logic was embedded across client-side code without separation, and there was no path to multi-hospital support without fundamental rearchitecting. The organisation needed a web-based platform that could serve multiple hospitals simultaneously while preserving years of existing financial logic and maintaining transaction accuracy.
 
-The backend was rebuilt in **.NET (C#)** with a strict quality baseline from day one. Every service and domain rule was covered by **xUnit** unit tests, maintaining **90%+ test coverage** throughout the project. This was non-negotiable for a healthcare system where billing and clinical workflow logic had to be provably correct before any deployment.
+## My Role
 
-### Continuous Code Quality with SonarQube
-
-All code — backend and frontend — was wired into **SonarQube** for continuous static analysis. Every pull request was automatically analysed for bugs, code smells, security vulnerabilities, and duplication. Issues were resolved before merge, not discovered in production. This kept the codebase maintainable as the team iterated through migration phases.
-
-### Responsive Frontend in Next.js + TypeScript with Jest
-
-The frontend was built in **Next.js and TypeScript** — typed end-to-end to catch integration mistakes at compile time. Component-level **Jest unit tests** were written alongside every feature, with SonarQube enforcing coverage gates consistently.
+Full-stack engineer responsible for backend API development in .NET Core and C#, frontend implementation in Next.js and TypeScript, financial transaction processing, integration with existing hospital infrastructure, and analysing legacy desktop code to understand and correctly reimplement undocumented business logic.
 
 ## Key Challenges
 
-**Preserving undocumented domain logic.** The desktop system encoded years of healthcare-specific rules — charge calculations, patient workflow states, role-based access — in ways that were rarely documented. Every rule had to be reverse-engineered from existing behaviour, validated with end users, and then covered by tests before reimplementation.
+**Reverse-engineering undocumented business logic.** The desktop system had no documentation. Every financial rule — charge structures, discount logic, admission state transitions, billing calculations — had to be extracted by reading production behavior, querying key operational users, and cross-referencing output against the existing system.
 
-**Zero-downtime cutover.** Clinical operations run continuously. The migration ran in parallel with the legacy system using a staged rollout — departments switched at their own pace while both systems stayed in sync through an adapter layer over the existing database.
+**Parallel system operation.** During the transition period, both systems operated simultaneously against shared infrastructure. Data consistency between the desktop and web systems was non-negotiable. Any divergence in financial records was a production incident.
 
-**Maintaining quality under pressure.** Migrating a live system under client deadlines creates pressure to skip tests. Keeping SonarQube gates enforced and the xUnit suite green at every stage prevented that from happening.
+**Financial accuracy under time pressure.** In healthcare finance, incorrect calculations affect patient invoices and hospital revenue. The engineering bar for correctness was unusually high — there was no tolerance for rounding errors, missing charges, or incorrect state transitions.
 
-## Technical Approach
+## Technical Highlights
 
-- **Strangler fig migration** — new modules replaced legacy components incrementally, avoiding a big-bang rewrite and enabling staged validation with real users.
-- **Adapter layer** — a thin .NET API exposed the existing database to new frontend modules, decoupling frontend delivery from full backend rewrite timelines.
-- **RBAC rebuilt from scratch** — role-based access control reimplemented with proper session management, audit logging, and alignment to the organisation's actual access hierarchy.
-- **Quality gates enforced throughout** — xUnit + SonarQube on the backend, Jest + SonarQube on the frontend. No exceptions.
+- Implemented parallel processing strategies for large-scale ledger operations handling **100,000+ transactional records** while maintaining system stability and financial accuracy
+- Rebuilt the backend in **.NET Core (C#)** with **xUnit** unit tests maintaining **90%+ coverage** throughout — every service and domain rule covered before any deployment to the shared environment
+- Wired all code into **SonarQube** for continuous static analysis, with every pull request gated on bugs, code smells, and coverage checks before merge
+- Rebuilt the frontend in **Next.js and TypeScript** with **Jest** component-level unit tests and SonarQube coverage gates enforced consistently
+- Implemented a thin adapter layer over the existing hospital database, allowing the web frontend to be delivered independently of the full backend rewrite timeline
 
-## Stack
+## Engineering Decisions
 
-- **Backend:** .NET (C#), xUnit, SonarQube
-- **Frontend:** Next.js, TypeScript, Jest, SonarQube
-- **Database:** PostgreSQL
-- **Infrastructure:** On-premise deployment, web-accessible frontend
+**Strangler fig migration over big-bang rewrite.** New modules replaced legacy components incrementally — admission, billing, then reporting — with each module validated against the desktop system before the next phase began. This avoided a risky full cutover and gave operational teams time to verify correctness in each area.
+
+**Test coverage as a hard constraint.** Given the financial stakes, 90%+ xUnit coverage was treated as a non-negotiable baseline, not a target. SonarQube gates on every PR enforced this throughout the project lifecycle, not just at launch.
+
+**Adapter pattern over direct migration.** Rather than migrating the database schema immediately, a thin .NET API was placed over the existing schema, allowing the frontend to be built and deployed while the data layer migration happened in parallel.
 
 ## Outcome
 
-Clinical staff gained access to the system from any device without installing software. The engineering team inherited a codebase with real test coverage and automated quality analysis — something the old desktop application never had. The staged rollout delivered the migration without a single disruption to patient-facing operations.
+Clinical and finance staff gained access to the system from any device without installing software. The engineering team inherited a codebase with real test coverage and automated quality analysis. The staged migration delivered the transition without a single disruption to patient-facing financial operations. The platform now supports active usage across more than 30 hospitals.
