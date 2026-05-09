@@ -119,7 +119,30 @@ export default async function Project({
         </Row>
       </Row>
       {post.metadata.images.length > 0 && (
-        <Media priority aspectRatio="16 / 9" radius="m" alt="image" src={post.metadata.images[0]} />
+        <Column fillWidth gap="12">
+          <Media
+            priority
+            aspectRatio="16 / 9"
+            radius="m"
+            alt={post.metadata.title}
+            src={post.metadata.images[0]}
+            style={{ maxHeight: "420px", objectFit: "contain", background: "var(--neutral-alpha-weak)" }}
+          />
+          {post.metadata.images.length > 1 && (
+            <Row gap="12" wrap>
+              {post.metadata.images.slice(1).map((img, i) => (
+                <Media
+                  key={i}
+                  aspectRatio="16 / 9"
+                  radius="m"
+                  alt={`${post.metadata.title} ${i + 2}`}
+                  src={img}
+                  style={{ flex: "1 1 280px", maxHeight: "220px", objectFit: "contain", background: "var(--neutral-alpha-weak)" }}
+                />
+              ))}
+            </Row>
+          )}
+        </Column>
       )}
       <Column style={{ margin: "auto" }} as="article" maxWidth="xs">
         <CustomMDX source={post.content} />

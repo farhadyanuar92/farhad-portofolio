@@ -1,0 +1,58 @@
+---
+title: "Jira Timesheet Validation Automation"
+publishedAt: "2025-03-01"
+summary: "Automating financial timesheet verification using n8n and AI-assisted validation — reducing a 2-day manual review process for 150+ employees to approximately 2 hours with near-zero human error."
+images:
+  - "/images/n8n/n8n-flow.jpg"
+  - "/images/n8n/n8n-flow-2.jpg"
+  - "/images/n8n/pdf-jira.jpg"
+  - "/images/n8n/result-timesheet.jpg"
+team:
+  - name: "Farhad Yanuar"
+    role: "Automation Engineer"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/farhad-yanuar/"
+---
+
+## Overview
+
+The finance team was manually reviewing PDF timesheet submissions against Jira task records for more than 150 employees — twice every month. Each review cycle required opening individual PDFs, cross-referencing logged hours against Jira tasks, and compiling results by hand. The process took approximately two full working days per cycle, introduced significant operational risk from copy-paste errors, and had no systematic way to catch edge cases or inconsistencies.
+
+This project replaced that manual process entirely with an automated validation pipeline built on n8n — handling file ingestion, PDF extraction, AI-assisted hour verification, and centralised report generation.
+
+## Problem
+
+Manual timesheet validation at this scale is operationally fragile. Human reviewers tire, miss edge cases, and inconsistently apply validation rules. With 150+ submissions arriving simultaneously twice a month, the finance team had no reliable way to audit their own process or detect systematic errors. Any mistake had downstream impact on client billing accuracy.
+
+## My Role
+
+Designed and implemented the entire automation workflow — from initial file upload handling through PDF extraction, AI-assisted validation logic, and final report generation. Responsible for the full pipeline architecture, workflow configuration in n8n, and validation logic design.
+
+## Key Challenges
+
+**Reliable PDF data extraction.** Employee submissions varied in formatting and layout. The extraction pipeline had to handle format inconsistencies without silently misreading hours or dates — any extraction error would corrupt the validation result for that employee.
+
+**AI-assisted validation accuracy.** Using AI to verify hours against Jira records required careful prompt design and output validation to ensure the system produced consistent, auditable results rather than probabilistic guesses that couldn't be reviewed.
+
+**Handling edge cases in submission scenarios.** Employees submit timesheets in different states — partial weeks, leave periods, overlapping Jira tasks, and multiple project codes. The pipeline had to account for these scenarios without failing silently.
+
+**Finance team adoption.** The previous process was deeply manual and the team was unfamiliar with automation tooling. The replacement had to be as simple as an upload — no configuration, no technical knowledge required.
+
+## Technical Highlights
+
+- Built automated **upload and validation pipelines** using n8n workflows — handling file ingestion, routing, extraction, validation, and report generation as a single automated flow
+- Extracted and analysed PDF data using **AI-assisted verification** to validate employee billable hours against corresponding Jira task records with structured output
+- Generated **centralised Excel validation reports** with per-employee valid/invalid result tracking, flagged discrepancies, and summary statistics for finance team review
+- Reduced processing time from **approximately 2 full working days to around 2 hours** per cycle — a 10× improvement in throughput
+- Eliminated the manual copy-paste step that was the primary source of validation errors in the previous process
+- Delivered a **user-facing upload interface** simple enough for non-technical finance staff to operate independently without engineering support
+
+## Engineering Decisions
+
+**n8n over custom code for the workflow orchestration.** The validation pipeline involves multiple sequential steps with branching logic, external API calls, and file handling. n8n's visual workflow model made each step observable, debuggable, and modifiable without redeployment — important for a finance process where the team needed to trust and verify the automation's behavior.
+
+**Structured AI output with explicit validation schema.** Rather than using free-form AI responses, the validation prompt was designed to return structured JSON with defined fields for each employee — hours matched, discrepancy flag, Jira reference, and confidence level. This made downstream report generation deterministic and gave the finance team an auditable trail rather than opaque AI results.
+
+## Outcome
+
+The finance team now runs the full validation cycle for 150+ employees in approximately 2 hours, down from 2 full working days. Copy-paste errors have been eliminated — the pipeline produces consistent, auditable results every cycle. The upload interface is simple enough that finance staff run it independently with no engineering involvement. The freed capacity has been redirected to higher-value financial analysis work.

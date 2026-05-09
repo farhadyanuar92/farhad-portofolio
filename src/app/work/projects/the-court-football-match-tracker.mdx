@@ -1,0 +1,55 @@
+---
+title: "The Court — Football Match Tracker"
+publishedAt: "2024-03-01"
+summary: "A real-time football match tracking application for Bandung-based teams — enabling live event recording, match history management, and responsive multi-device access from the pitch."
+images:
+  - "/images/projects/project-01/cover-01.jpg"
+  - "/images/projects/project-01/cover-02.jpg"
+  - "/images/projects/project-01/cover-03.jpg"
+  - "/images/projects/project-01/cover-04.jpg"
+team:
+  - name: "Farhad Yanuar"
+    role: "Full-Stack Engineer"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/farhad-yanuar/"
+---
+
+## Overview
+
+The Court is a football match tracking application built for amateur and semi-professional teams in Bandung. It provides live match event recording — goals, assists, yellow and red cards, substitutions — and maintains a persistent match history across seasons. Designed to be used from the sideline on any device, the interface prioritises speed and reliability under real-match conditions where seconds matter and connectivity may be limited.
+
+## Problem
+
+Most football tracking tools are either professional-grade with complexity that doesn't suit amateur setups, or generic spreadsheet-based records that offer no real-time capability. Teams recording their own matches need something minimal enough to operate during a live game, accurate enough to use as a historical record, and accessible without specialist hardware.
+
+## My Role
+
+Designed and built the full application — frontend, backend, data modelling, and deployment. Responsible for all product decisions including the live event recording flow, match state management, and multi-device access architecture.
+
+## Key Challenges
+
+**Real-time event recording under match conditions.** Operators are focused on the game, not a screen. The recording interface had to be fast enough to capture events as they happen without requiring multiple confirmations or context-switching between screens.
+
+**Maintaining consistent match state.** Live events arrive in rapid sequence — a goal, an assist, and a card within seconds. The system had to maintain consistent state under concurrent updates without creating incorrect match records that would corrupt historical data.
+
+**Multi-device access.** Match operators, team managers, and viewers often want to follow the same match on different devices simultaneously. The architecture had to support concurrent read access with live updates without requiring complex real-time infrastructure.
+
+**Offline resilience.** Pitches in Bandung don't always have reliable connectivity. The application needed a strategy for capturing events locally and syncing reliably when the connection recovers — without the operator having to think about it.
+
+## Technical Highlights
+
+- Built **live event recording** with minimal-tap UI — goals, assists, cards, and substitutions captured in a single tap from a mobile-optimised interface optimised for sideline use
+- Implemented **real-time match state updates** ensuring all connected devices see consistent live scores and events without manual refresh
+- Designed a **match history data model** supporting season-level aggregation — team records, player statistics, and head-to-head history queryable across seasons
+- Built **responsive multi-device UI** supporting simultaneous access from phones, tablets, and desktop browsers without degraded experience
+- Implemented **local event buffering** for graceful handling of intermittent connectivity — events captured offline sync automatically on reconnect
+
+## Engineering Decisions
+
+**Minimal recording interface by design.** The biggest product risk was an interface too slow or too complex to use during a live match. Early designs were deliberately stripped back to single-tap event recording with large touch targets — the assumption being that false simplicity was preferable to accuracy loss from a cluttered UI.
+
+**Server-side match state as the source of truth.** Rather than synchronising state across clients, the server holds canonical match state and all clients reflect it. This eliminated a class of consistency bugs that would arise from client-to-client sync, at the cost of requiring reconnection to see updates — an acceptable trade-off for this use case.
+
+## Outcome
+
+The Court is actively used by teams in Bandung for live match tracking and historical record-keeping. Operators can record full match events from a smartphone on the sideline with no specialist setup. Match history is immediately available for review after games, and season-level statistics are queryable without manual compilation.

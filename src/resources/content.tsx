@@ -190,7 +190,7 @@ const about: About = {
     ],
   },
   studies: {
-    display: true,
+    display: false,
     title: "Education",
     institutions: [
       {

@@ -9,6 +9,7 @@ import {
   SmartLink,
   Text,
 } from "@once-ui-system/core";
+import Image from "next/image";
 
 interface ProjectCardProps {
   href: string;
@@ -23,6 +24,7 @@ interface ProjectCardProps {
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
   href,
+  priority,
   images = [],
   title,
   content,
@@ -34,8 +36,28 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     <Column fillWidth gap="m">
       <Carousel
         sizes="(max-width: 960px) 100vw, 960px"
-        items={images.map((image) => ({
-          slide: image,
+        indicator="line"
+        aspectRatio="16 / 9"
+        items={images.map((image, i) => ({
+          slide: (
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                height: "100%",
+                background: "var(--neutral-alpha-weak, #0d0d1a)",
+              }}
+            >
+              <Image
+                src={image}
+                alt={title}
+                fill
+                priority={priority && i === 0}
+                sizes="(max-width: 960px) 100vw, 960px"
+                style={{ objectFit: "contain" }}
+              />
+            </div>
+          ),
           alt: title,
         }))}
       />
