@@ -8,13 +8,12 @@ import {
   Column,
   Flex,
   Heading,
-  Media,
   Text,
   SmartLink,
   Row,
-  Avatar,
   Line,
 } from "@once-ui-system/core";
+import Image from "next/image";
 import { baseURL, about, person, work } from "@/resources";
 import { formatDate } from "@/utils/formatDate";
 import { ScrollToHash, CustomMDX } from "@/components";
@@ -120,25 +119,43 @@ export default async function Project({
       </Row>
       {post.metadata.images.length > 0 && (
         <Column fillWidth gap="12">
-          <Media
-            priority
-            aspectRatio="16 / 9"
-            radius="m"
-            alt={post.metadata.title}
-            src={post.metadata.images[0]}
-            style={{ maxHeight: "420px", objectFit: "contain", background: "var(--neutral-alpha-weak)" }}
-          />
+          <div style={{
+            position: "relative",
+            width: "100%",
+            aspectRatio: "16 / 9",
+            background: "var(--neutral-alpha-weak)",
+            borderRadius: "var(--radius-m)",
+            overflow: "hidden",
+          }}>
+            <Image
+              priority
+              src={post.metadata.images[0]}
+              alt={post.metadata.title}
+              fill
+              sizes="(max-width: 960px) 100vw, 960px"
+              style={{ objectFit: "contain" }}
+            />
+          </div>
           {post.metadata.images.length > 1 && (
             <Row gap="12" wrap>
               {post.metadata.images.slice(1).map((img, i) => (
-                <Media
-                  key={i}
-                  aspectRatio="16 / 9"
-                  radius="m"
-                  alt={`${post.metadata.title} ${i + 2}`}
-                  src={img}
-                  style={{ flex: "1 1 280px", maxHeight: "220px", objectFit: "contain", background: "var(--neutral-alpha-weak)" }}
-                />
+                <div key={i} style={{
+                  position: "relative",
+                  flex: "1 1 280px",
+                  aspectRatio: "16 / 9",
+                  background: "var(--neutral-alpha-weak)",
+                  borderRadius: "var(--radius-m)",
+                  overflow: "hidden",
+                  minWidth: "280px",
+                }}>
+                  <Image
+                    src={img}
+                    alt={`${post.metadata.title} ${i + 2}`}
+                    fill
+                    sizes="(max-width: 960px) 100vw, 480px"
+                    style={{ objectFit: "contain" }}
+                  />
+                </div>
               ))}
             </Row>
           )}

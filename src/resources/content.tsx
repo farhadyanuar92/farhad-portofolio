@@ -69,7 +69,7 @@ const home: Home = {
         </Text>
       </Row>
     ),
-    href: "/work/migrating-legacy-healthcare-system-to-web",
+    href: "/work/kairos-finance-ledger",
   },
   subline: (
     <>
